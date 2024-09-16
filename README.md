@@ -24,7 +24,7 @@ It is a Next.js-based demo web application for HR to manage employees' details. 
 
 1. Clone the repo:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/abirahmed56/next-employee.git
    ```
 2. Install dependencies:
    ```bash
