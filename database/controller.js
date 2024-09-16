@@ -4,7 +4,7 @@ import Users from "../model/user";
 export async function getUsers(req, res) {
   const {
     page = 1,
-    size = 6,
+    size = 8,
     sort_by = "createdAt",
     order = 1,
     name,
@@ -122,7 +122,7 @@ export async function searchUsers(req, res) {
     searchCriteria.phone = { $regex: phone, $options: "i" };
   }
   if (date) {
-    searchCriteria.date = new Date(date); // Assumes date stored as string
+    searchCriteria.date = new Date(date);
   }
 
   const users = await Users.find(searchCriteria);

@@ -1,6 +1,5 @@
 "use client";
 import { Layout } from "@/components/Layout";
-import { useRouter } from "next/router";
 import { EmployeeTable } from "../components/EmployeeTable";
 
 export default function Home() {

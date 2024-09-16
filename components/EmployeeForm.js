@@ -29,7 +29,7 @@ const handleImage = async (file) => {
 };
 
 export const EmployeeForm = ({ employee, onComplete }) => {
-  const { getValues,reset, register, handleSubmit, formState } = useForm();
+  const { reset, register, handleSubmit, formState } = useForm();
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export const EmployeeForm = ({ employee, onComplete }) => {
       />
       <Input {...register("email")} placeholder="Enter email" />
       <Input
-        {...register("date", { required: true })}
+        {...register("date", { required: !employee })}
         placeholder="Enter date of birth"
         type="date"
       />

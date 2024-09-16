@@ -1,40 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Employee Management System
 
-## Getting Started
+It is a Next.js-based demo web application for HR to manage employees' details. It is a simple application with some key features sush as sorting, pagination, CRUD operations. 
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Image Resizing**: Resizes employee images before storage for optimal performance using 'browser-image-compression' library.
+- **Sortable Columns**: Sort by name, email, mobile number, or date of birth.
+- **Pagination**: Supports pagination while fetching data from database.
+- **CRUD Operations**: 
+  - **Add**: Upload a photo and provide details (name, email, mobile, date of birth).
+  - **Edit**: Update employee details via an edit page.
+  - **Delete**: Confirm deletion with a popup (Yes/No options).
+- **Search**: Supports search fot name, email, DOB and phone (partial search for names and emails)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- **Next.js**: Framework for server-side rendering and UI.
+- **Image Resizing**: Implemented with `sharp` (server-side) or client-side libraries.
+- **Pagination**: Database-driven, fetching data in pages.
+- **Date Picker**: Uses libraries like `react-datepicker`.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Setup
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Clone the repo:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Add environment variables in a `.env` file for database configuration.
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Key Functionalities
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Image Resizing**: Optimizes large image uploads.
+- **Sorting**: Sort data by key fields (name, email, etc.).
+- **Pagination**: Efficient data fetching, one page at a time.
+- **CRUD**: Add, edit, and delete employee records with confirmation prompts.
