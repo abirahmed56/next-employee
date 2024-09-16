@@ -4,7 +4,7 @@ It is a Next.js-based demo web application for HR to manage employees' details. 
 
 ## Features
 
-- **Image Resizing**: Resizes employee images before storage for optimal performance using 'browser-image-compression' library.
+- **Image Resizing**: Resizes employee images before storage for optimal performance.
 - **Sortable Columns**: Sort by name, email, mobile number, or date of birth.
 - **Pagination**: Supports pagination while fetching data from database.
 - **CRUD Operations**: 
@@ -16,9 +16,8 @@ It is a Next.js-based demo web application for HR to manage employees' details. 
 ## Tech Stack
 
 - **Next.js**: Framework for server-side rendering and UI.
-- **Image Resizing**: Implemented with `sharp` (server-side) or client-side libraries.
+- **Image Resizing**: Implemented with 'browser-image-compression' library.
 - **Pagination**: Database-driven, fetching data in pages.
-- **Date Picker**: Uses libraries like `react-datepicker`.
 
 ## Setup
 
