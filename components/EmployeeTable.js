@@ -168,7 +168,9 @@ export function EmployeeTable() {
 }
 
 function Tr(employee) {
-  const { _id, firstName, lastName, avatar, email, phone, date } = employee;
+  const { _id, firstName, lastName, avatar, email, phone } = employee;
+  const date = new Date(employee.date)
+  date.setHours(date.getHours()+7)
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   return (
@@ -181,7 +183,7 @@ function Tr(employee) {
       )}
       {showEditModal && (
         <Modal onBackgroundClick={() => setShowEditModal(false)}>
-          <EmployeeForm employee={employee} setShowModal={setShowEditModal} />
+          <EmployeeForm employee={employee} onComplete={()=>setShowEditModal(false)} />
         </Modal>
       )}
       <tr className="hover:bg-gray-50 text-center border-b border-gray-200">
@@ -202,7 +204,7 @@ function Tr(employee) {
           <span>{phone || "Unknown"}</span>
         </td>
         <td className="px-2 py-2">
-          <span>{date ? new Date(date).toLocaleDateString() : "Unknown"}</span>
+          <span>{date ? date.toLocaleDateString() : "Unknown"}</span>
         </td>
         <td className="px-2 py-2 items-center justify-center flex gap-1">
           <div

@@ -70,7 +70,7 @@ export async function postUser(req, res) {
   }
 
 
-  const existingUser = await Users.findOne({ email, phone });
+  const existingUser = await Users.findOne({ $or: [{email},{phone}]});
   if (existingUser && existingUser.email === email) {
     throw new HttpError(409, "User with this email already exists");
   }

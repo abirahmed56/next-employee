@@ -5,8 +5,8 @@ const userSchema = new Schema({
   lastName: String,
   avatar: String,
   email: { type: String, unique: true },
-  phone: String,
-  date: String,
+  phone: { type: String, unique: true },
+  date: Date,
 });
 
 const Users = models.user || model("user", userSchema);

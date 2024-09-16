@@ -5,6 +5,7 @@ import { axiosClient } from "../lib/axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useQueryClient } from "react-query";
+import imageCompression from 'browser-image-compression'
 
 const handleImage = async (file) => {
   const formData = new FormData();
@@ -27,14 +28,13 @@ const handleImage = async (file) => {
   return (await response.json()).url;
 };
 
-export const EmployeeForm = ({ employee }) => {
-  const { reset, register, handleSubmit, formState } = useForm();
+export const EmployeeForm = ({ employee, onComplete }) => {
+  const { getValues,reset, register, handleSubmit, formState } = useForm();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     if (employee) reset(employee);
   }, []);
-
   const submit = async (data) => {
     if (data.avatar instanceof FileList) {
       data.avatar = await handleImage(data.avatar[0]);
@@ -44,6 +44,7 @@ export const EmployeeForm = ({ employee }) => {
         await axiosClient.put(`/api/users/${employee._id}`, data);
         toast("Employee updated successfully!");
         queryClient.refetchQueries({ queryKey: ["users"] });
+        onComplete?.()
       } catch (e) {
         toast("Failed to update employee");
       }
@@ -53,7 +54,8 @@ export const EmployeeForm = ({ employee }) => {
         toast("New employee added successfully!");
         reset();
       } catch (e) {
-        toast("Failed to add new employee");
+        console.log(e)
+        toast(e.response.data.message || "Failed to add new employee");
       }
     }
   };
@@ -83,7 +85,7 @@ export const EmployeeForm = ({ employee }) => {
         type="date"
       />
       <Input
-        {...register("avatar", { required: true })}
+        {...register("avatar", { required: !employee })}
         placeholder="Enter profile pic"
         type="file"
         accept="image/*"
