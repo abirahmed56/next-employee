@@ -3,27 +3,35 @@ import Users from "../model/user";
 
 export async function getUsers(req, res) {
   const {
-    search,
     page = 1,
     size = 6,
     sort_by = "createdAt",
     order = 1,
+    name,
+    date,
+    email,
+    phone,
   } = req.query;
   const searchCriteria = {};
-  if (search) {
-    const regex = { $regex: search, $options: "i" };
+  if (name) {
+    const regex = { $regex: name, $options: "i" };
     searchCriteria.$or = [
-      { firstName: regex },
       {
         lastName: regex,
       },
       {
-        phone: search,
-      },
-      {
-        email: regex,
+        firstName: regex,
       },
     ];
+  }
+  if (date) {
+    searchCriteria.date = new Date(date);
+  }
+  if (email) {
+    searchCriteria.email = { $regex: email, $options: "i" };
+  }
+  if (phone) {
+    searchCriteria.phone = phone;
   }
 
   const users = await Users.find(searchCriteria)
@@ -52,10 +60,22 @@ export async function getUser(req, res) {
 }
 
 export async function postUser(req, res) {
-  const { firstName, avatar, lastName, email, phone, date } = req.body;
+  const { firstName, avatar, lastName, email, phone, date } =
+    Object.fromEntries(
+      Object.entries(req.body).map(([key, value]) => [key, value.trim()])
+    );
 
   if (!firstName || !lastName || !avatar || !email || !phone || !date) {
     throw new HttpError(400, "Missing form data");
+  }
+
+
+  const existingUser = await Users.findOne({ email, phone });
+  if (existingUser && existingUser.email === email) {
+    throw new HttpError(409, "User with this email already exists");
+  }
+  else if (existingUser && existingUser.phone === phone) {
+    throw new HttpError(409, "User with this phone number already exists");
   }
 
   const userData = { firstName, lastName, avatar, email, phone, date };
@@ -93,7 +113,7 @@ export async function searchUsers(req, res) {
   const searchCriteria = {};
 
   if (name) {
-    searchCriteria.name = { $regex: name, $options: "i" }; 
+    searchCriteria.name = { $regex: name, $options: "i" }; // Case-insensitive match
   }
   if (email) {
     searchCriteria.email = { $regex: email, $options: "i" };
@@ -102,7 +122,7 @@ export async function searchUsers(req, res) {
     searchCriteria.phone = { $regex: phone, $options: "i" };
   }
   if (date) {
-    searchCriteria.date = new Date(date); 
+    searchCriteria.date = new Date(date); // Assumes date stored as string
   }
 
   const users = await Users.find(searchCriteria);
